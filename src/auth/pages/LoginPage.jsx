@@ -1,26 +1,36 @@
 import { Google } from '@mui/icons-material';
-import { Button, Grid, Link, TextField, Typography } from '@mui/material';
+import {
+  Alert,
+  Button,
+  Grid,
+  Link,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 import { useForm } from '../../hooks';
-import { checkingAuthentication, startGoogleSignIn } from '../../store/auth';
+import {
+  startGoogleSignIn,
+  startLoginWithEmailPassword,
+} from '../../store/auth';
 import { AuthLayout } from '../layout/AuthLayout';
 
 export const LoginPage = () => {
   const dispatch = useDispatch();
-  const { status } = useSelector((state) => state.auth);
-  const { email, password, handleInputChange } = useForm({
-    email: 'retford@gmail.com',
-    password: '12134',
+  const { status, errorMessage } = useSelector((state) => state.auth);
+  const { formState, email, password, handleInputChange } = useForm({
+    email: 'abc@gmail.com',
+    password: '123123123',
   });
 
   const isAuthenticating = useMemo(() => status === 'checking', [status]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log({ email, password });
-    dispatch(checkingAuthentication(email, password));
+
+    dispatch(startLoginWithEmailPassword(formState));
   };
 
   const handleGoogleSignIn = () => {
@@ -36,7 +46,7 @@ export const LoginPage = () => {
             <TextField
               label='Correo'
               type='email'
-              placeholder='crre@gmail.com'
+              placeholder='correo@gmail.com'
               fullWidth
               name='email'
               value={email}
@@ -55,11 +65,14 @@ export const LoginPage = () => {
             />
           </Grid>
           <Grid container spacing={2} sx={{ mb: 2, mt: 1 }}>
+            <Grid item xs={12} display={errorMessage ? '' : 'none'}>
+              <Alert severity='error'>{errorMessage}</Alert>
+            </Grid>
             <Grid item xs={12} sm={6}>
               <Button
+                type='submit'
                 variant='contained'
                 fullWidth
-                type='submit'
                 disabled={isAuthenticating}
               >
                 Login

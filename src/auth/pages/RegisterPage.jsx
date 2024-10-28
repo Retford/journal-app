@@ -14,13 +14,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { startCreatingUserWithEmailPassword } from '../../store/auth';
 
 const formData = {
-  fullName: '',
+  displayName: '',
   email: '',
   password: '',
 };
 
 const formValidations = {
-  fullName: [(value) => value.length >= 1, 'El nombre es obligatorio'],
+  displayName: [(value) => value.length >= 1, 'El nombre es obligatorio'],
   email: [(value) => value.includes('@'), 'El correo debe de tener @'],
   password: [
     (value) => value.length >= 6,
@@ -40,12 +40,12 @@ export const RegisterPage = () => {
 
   const {
     formState,
-    fullName,
+    displayName,
     email,
     password,
     handleInputChange,
     isFormValid,
-    fullNameValid,
+    displayNameValid,
     emailValid,
     passwordValid,
   } = useForm(formData, formValidations);
@@ -71,11 +71,11 @@ export const RegisterPage = () => {
               type='text'
               placeholder='Nombre Completo'
               fullWidth
-              name='fullName'
-              value={fullName}
+              name='displayName'
+              value={displayName}
               onChange={handleInputChange}
-              error={!!fullNameValid && formSubmitted}
-              helperText={fullNameValid}
+              error={!!displayNameValid && formSubmitted}
+              helperText={displayNameValid}
             />
           </Grid>
 

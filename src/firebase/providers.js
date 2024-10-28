@@ -15,11 +15,11 @@ export const signInWithGoogle = async () => {
     // const credentials = GoogleAuthProvider.credentialFromResult(result);
     const user = result.user;
 
-    const { fullName, email, photoURL, uid } = user;
+    const { displayName, email, photoURL, uid } = user;
     return {
       ok: true,
       // user Info
-      fullName,
+      displayName,
       email,
       photoURL,
       uid,
@@ -36,7 +36,7 @@ export const signInWithGoogle = async () => {
 };
 
 export const registerUserWithEmailPassword = async ({
-  fullName,
+  displayName,
   email,
   password,
 }) => {
@@ -49,14 +49,14 @@ export const registerUserWithEmailPassword = async ({
 
     const { uid, photoURL } = resp.user;
 
-    await updateProfile(FirebaseAuth.currentUser, { fullName });
+    await updateProfile(FirebaseAuth.currentUser, { displayName });
 
     return {
       ok: true,
       uid,
       photoURL,
       email,
-      fullName,
+      displayName,
     };
   } catch (error) {
     return { ok: false, errorMessage: error.message };
@@ -71,15 +71,19 @@ export const loginWithEmailPassword = async ({ email, password }) => {
       password
     );
 
-    const { uid, photoURL, displayName: fullName } = resp.user;
+    const { uid, photoURL, displayName } = resp.user;
 
     return {
       ok: true,
       uid,
       photoURL,
-      fullName,
+      displayName,
     };
   } catch (error) {
     return { ok: false, errorMessage: error.message };
   }
+};
+
+export const logoutFirebase = async () => {
+  return await FirebaseAuth.signOut();
 };

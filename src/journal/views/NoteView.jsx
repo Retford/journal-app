@@ -1,9 +1,10 @@
 import { SaveOutlined } from '@mui/icons-material';
 import { Button, Grid, TextField, Typography } from '@mui/material';
-import { ImageGallery } from '../components';
+import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from '../../hooks';
-import { useMemo } from 'react';
+import { setActiveNote, startSaveNote } from '../../store/journal';
+import { ImageGallery } from '../components';
 
 export const NoteView = () => {
   const dispatch = useDispatch();
@@ -15,9 +16,13 @@ export const NoteView = () => {
     return newDate.toUTCString();
   }, [date]);
 
-  const handleClickSave = (event) => {
-    event.preventDefault();
-    console.log(formState);
+  useEffect(() => {
+    dispatch(setActiveNote(formState));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formState]);
+
+  const handleClickSave = () => {
+    dispatch(startSaveNote());
   };
 
   return (

@@ -62,3 +62,11 @@ export const startSaveNote = () => {
     dispatch(updateNote(note));
   };
 };
+
+export const startUploadingFiles = (files = []) => {
+  return async (dispatch) => {
+    dispatch(setSaving());
+
+    console.log(files);
+  };
+};

@@ -25,7 +25,6 @@ export const journalSlice = createSlice({
     },
     setSaving: (state) => {
       state.isSaving = true;
-      //!TODO: Message Error
       state.messageSaved = '';
     },
     updateNote: (state, action) => {
@@ -34,9 +33,14 @@ export const journalSlice = createSlice({
         if (note.id === action.payload.id) return action.payload;
         return note;
       });
-      //!TODO: Message Saving
       state.messageSaved = `${action.payload.title}, actualizada correctamente`;
     },
+
+    setPhotosToActiveNotes: (state, action) => {
+      state.active.imageUrls = [...state.active.imageUrls, ...action.payload];
+      state.isSaving = false;
+    },
+
     deleteNoteById: (state, action) => {},
   },
 });
@@ -50,4 +54,5 @@ export const {
   setSaving,
   updateNote,
   deleteNoteById,
+  setPhotosToActiveNotes,
 } = journalSlice.actions;

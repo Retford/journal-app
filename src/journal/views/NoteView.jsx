@@ -48,7 +48,6 @@ export const NoteView = () => {
 
   const handleFileInputChange = ({ target }) => {
     if (target.files === 0) return;
-    console.log('Subiendo archivos');
 
     dispatch(startUploadingFiles(target.files));
   };
@@ -74,7 +73,10 @@ export const NoteView = () => {
           onChange={handleFileInputChange}
           style={{ display: 'none' }}
         />
-        <IconButton onClick={() => fileInputRef.current.click()}>
+        <IconButton
+          disabled={isSaving}
+          onClick={() => fileInputRef.current.click()}
+        >
           <UploadOutlined color='primary' disabled={isSaving} />
         </IconButton>
         <Button

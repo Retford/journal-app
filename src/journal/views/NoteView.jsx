@@ -77,7 +77,7 @@ export const NoteView = () => {
           disabled={isSaving}
           onClick={() => fileInputRef.current.click()}
         >
-          <UploadOutlined color='primary' disabled={isSaving} />
+          <UploadOutlined color='primary' />
         </IconButton>
         <Button
           disabled={isSaving}
@@ -114,7 +114,7 @@ export const NoteView = () => {
         />
       </Grid>
       {/* Image Gallery */}
-      <ImageGallery />
+      <ImageGallery images={note.imageUrls} />
     </Grid>
   );
 };

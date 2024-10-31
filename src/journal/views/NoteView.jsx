@@ -1,4 +1,8 @@
-import { SaveOutlined, UploadOutlined } from '@mui/icons-material';
+import {
+  DeleteOutline,
+  SaveOutlined,
+  UploadOutlined,
+} from '@mui/icons-material';
 import { Button, Grid, IconButton, TextField, Typography } from '@mui/material';
 import { useEffect, useMemo, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,6 +10,7 @@ import Swal from 'sweetalert2';
 import { useForm } from '../../hooks';
 import {
   setActiveNote,
+  startDeletingNote,
   startSaveNote,
   startUploadingFiles,
 } from '../../store/journal';
@@ -52,6 +57,14 @@ export const NoteView = () => {
     dispatch(startUploadingFiles(target.files));
   };
 
+  const handleClickDelete = () => {
+    dispatch(startDeletingNote());
+    Swal.fire({
+      title: 'Nota eliminada',
+      icon: 'warning',
+    });
+  };
+
   return (
     <Grid
       container
@@ -75,9 +88,10 @@ export const NoteView = () => {
         />
         <IconButton
           disabled={isSaving}
+          color='primary'
           onClick={() => fileInputRef.current.click()}
         >
-          <UploadOutlined color='primary' />
+          <UploadOutlined />
         </IconButton>
         <Button
           disabled={isSaving}
@@ -112,6 +126,12 @@ export const NoteView = () => {
           onChange={handleInputChange}
           minRows={5}
         />
+      </Grid>
+      <Grid container justifyContent='end'>
+        <Button onClick={handleClickDelete} sx={{ mt: 2 }} color='error'>
+          <DeleteOutline />
+          Borrar
+        </Button>
       </Grid>
       {/* Image Gallery */}
       <ImageGallery images={note.imageUrls} />

@@ -3,27 +3,20 @@ import { LogoutOutlined, MenuOutlined } from '@mui/icons-material';
 import { useDispatch } from 'react-redux';
 import { startLogout } from '../../store/auth';
 
-export const NavBar = ({ drawerWidth = 240 }) => {
+export const NavBar = ({ openDrawer, toggleDrawer }) => {
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(startLogout());
   };
 
   return (
-    <AppBar
-      position='fixed'
-      sx={{
-        width: { sm: `calc(100% - ${drawerWidth}px)` },
-        ml: {
-          sm: `${drawerWidth}px`,
-        },
-      }}
-    >
+    <AppBar position='fixed'>
       <Toolbar>
         <IconButton
+          onClick={toggleDrawer(true)}
           color='inherit'
           edge='start'
-          sx={{ mr: 2, display: { sm: 'none' } }}
+          sx={{ mr: 2 }}
         >
           <MenuOutlined />
         </IconButton>

@@ -92,6 +92,9 @@ export const NoteView = () => {
           onClick={() => fileInputRef.current.click()}
         >
           <UploadOutlined />
+          <Typography component='span' fontSize='0.875rem' fontWeight='500'>
+            SUBIR
+          </Typography>
         </IconButton>
         <Button
           disabled={isSaving}

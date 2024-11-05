@@ -43,6 +43,7 @@ export const LoginPage = () => {
   return (
     <AuthLayout title='Login'>
       <form
+        aria-label='submit-form'
         onSubmit={handleSubmit}
         className='animate__animated animate__zoomInRight'
       >
@@ -64,6 +65,7 @@ export const LoginPage = () => {
               type='password'
               placeholder='crre@gmail.com'
               fullWidth
+              inputProps={{ 'data-testId': 'password' }}
               name='password'
               value={password}
               onChange={handleInputChange}

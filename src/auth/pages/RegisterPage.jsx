@@ -52,6 +52,7 @@ export const RegisterPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     setFormSubmitted(true);
 
     if (!isFormValid) return;
@@ -73,6 +74,9 @@ export const RegisterPage = () => {
               placeholder='Nombre Completo'
               fullWidth
               name='displayName'
+              inputProps={{
+                'aria-label': 'fullName',
+              }}
               value={displayName}
               onChange={handleInputChange}
               error={!!displayNameValid && formSubmitted}
@@ -101,6 +105,9 @@ export const RegisterPage = () => {
               placeholder='crre@gmail.com'
               fullWidth
               name='password'
+              inputProps={{
+                'aria-label': 'password',
+              }}
               value={password}
               onChange={handleInputChange}
               error={!!passwordValid && formSubmitted}
